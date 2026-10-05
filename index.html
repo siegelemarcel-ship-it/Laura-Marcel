@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#eee5d8">
+<title>Laura & Marcel – Save the Date</title>
+<style>
+:root{
+  --ivory:#f5eee3;
+  --paper:#f8f1e7;
+  --paper-shadow:#dfd1bf;
+  --ink:#554239;
+  --sage:#7c8a72;
+  --sage2:#9aa58c;
+  --wax:#a43d3d;
+  --wax2:#7f2929;
+  --wax-hi:#c45b55;
+  --scratch:#aaa49c;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{
+  color:var(--ink);
+  background:#e4d8c8;
+  font-family:Georgia,"Times New Roman",serif;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+/* ---------- ENVELOPE ---------- */
+#envelopeScene{
+  position:fixed;inset:0;
+  display:grid;place-items:center;
+  padding:22px;
+  background:
+    radial-gradient(circle at 50% 35%,rgba(255,255,255,.55),transparent 42%),
+    linear-gradient(135deg,#d8cbb9,#eee6da 48%,#d6c8b6);
+  transition:opacity .65s ease,visibility .65s ease;
+  z-index:10;
+}
+#envelopeScene.hide{opacity:0;visibility:hidden;pointer-events:none}
+
+.envelope{
+  position:relative;
+  width:min(92vw,620px);
+  aspect-ratio:1.48/1;
+  filter:drop-shadow(0 25px 26px rgba(66,47,31,.22));
+  perspective:1200px;
+}
+.env-body{
+  position:absolute;inset:0;
+  overflow:hidden;
+  border-radius:2px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.75),transparent 28%),
+    linear-gradient(160deg,#faf4eb,#eadfce);
+  border:1px solid rgba(86,67,48,.14);
+}
+.env-body:before{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(34deg,transparent 49.75%,rgba(101,81,62,.15) 50%,transparent 50.25%),
+    linear-gradient(-34deg,transparent 49.75%,rgba(101,81,62,.15) 50%,transparent 50.25%);
+}
+.env-pocket{
+  position:absolute;left:0;right:0;bottom:0;height:68%;
+  background:linear-gradient(145deg,#f5ede3,#e7dac9);
+  clip-path:polygon(0 16%,50% 68%,100% 16%,100% 100%,0 100%);
+  border-top:1px solid rgba(90,70,50,.12);
+}
+.flap{
+  position:absolute;left:0;right:0;top:0;height:72%;
+  background:linear-gradient(155deg,#fbf5ed,#e8dccd);
+  clip-path:polygon(0 0,100% 0,50% 78%);
+  transform-origin:50% 0%;
+  transition:transform 1.1s cubic-bezier(.18,.82,.2,1);
+  z-index:6;
+  backface-visibility:hidden;
+}
+.envelope.open .flap{transform:rotateX(180deg)}
+
+.seal{
+  position:absolute;
+  z-index:20;
+  left:50%;top:54%;
+  width:112px;height:112px;
+  transform:translate(-50%,-50%);
+  border:0;
+  border-radius:49% 51% 46% 54% / 48% 45% 55% 52%;
+  background:
+    radial-gradient(circle at 33% 27%,rgba(255,255,255,.22),transparent 19%),
+    radial-gradient(circle at 48% 48%,var(--wax-hi) 0 28%,var(--wax) 57%,var(--wax2) 100%);
+  box-shadow:
+    inset 0 0 0 3px rgba(255,235,220,.18),
+    inset 0 -8px 14px rgba(76,12,12,.28),
+    0 8px 15px rgba(66,27,22,.28);
+  cursor:pointer;
+  transition:transform .65s ease,opacity .4s ease;
+}
+.seal:before{
+  content:"";
+  position:absolute;inset:8px;
+  border:1px solid rgba(255,235,220,.55);
+  border-radius:inherit;
+}
+.seal:after{
+  content:"";
+  position:absolute;inset:14px;
+  border:1px solid rgba(70,12,12,.28);
+  border-radius:inherit;
+}
+.seal-content{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  color:#f8ded8;
+  text-shadow:0 1px 1px rgba(70,10,10,.42);
+  z-index:2;
+}
+.seal-content .around{
+  font-size:9px;
+  letter-spacing:2.1px;
+  font-weight:bold;
+}
+.seal-content .initials{
+  font-size:24px;
+  letter-spacing:1px;
+  margin:8px 0 5px;
+  font-weight:normal;
+}
+.seal-content .heart{font-size:12px}
+.seal.pulse{animation:sealPulse 1.55s ease-in-out infinite}
+@keyframes sealPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,-50%) scale(1.045)}
+}
+.envelope.open .seal{
+  transform:translate(-50%,-50%) scale(.18) rotate(22deg);
+  opacity:0;
+  pointer-events:none;
+}
+.hint{
+  position:absolute;
+  z-index:30;
+  left:50%;bottom:-62px;
+  transform:translateX(-50%);
+  width:100%;
+  text-align:center;
+  font-size:14px;
+  line-height:1.5;
+  color:#5d4c3f;
+}
+.hint b{font-weight:normal}
+
+/* ---------- LETTER ---------- */
+#letterScene{
+  position:fixed;inset:0;
+  opacity:0;visibility:hidden;pointer-events:none;
+  background:#eee5d8;
+  z-index:30;
+  overflow:hidden;
+  transition:opacity .55s ease,visibility .55s ease;
+}
+#letterScene.show{opacity:1;visibility:visible;pointer-events:auto}
+
+.letter{
+  position:relative;
+  width:100vw;height:100dvh;
+  min-height:100vh;
+  overflow:auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:
+    max(38px,env(safe-area-inset-top) + 24px)
+    max(18px,env(safe-area-inset-right) + 18px)
+    max(28px,env(safe-area-inset-bottom) + 20px)
+    max(18px,env(safe-area-inset-left) + 18px);
+  background:
+    radial-gradient(circle at 50% 0%,rgba(255,255,255,.78),transparent 42%),
+    linear-gradient(145deg,#f8f1e7,#eee2d2);
+  box-shadow:inset 0 0 80px rgba(91,65,43,.08);
+  transform:translateY(110vh) rotate(.7deg);
+  opacity:0;
+  transition:transform 1.35s cubic-bezier(.16,.83,.2,1),opacity .7s ease;
+}
+#letterScene.show .letter{
+  transform:translateY(0) rotate(0);
+  opacity:1;
+}
+
+/* botanical corners, matching the reference design */
+.botanical{
+  position:absolute;
+  width:125px;height:170px;
+  opacity:.62;
+  pointer-events:none;
+}
+.botanical.tl{left:-12px;top:-8px;transform:rotate(-10deg)}
+.botanical.br{right:-12px;bottom:-8px;transform:rotate(170deg)}
+.botanical:before,.botanical:after{
+  content:"";
+  position:absolute;
+  background:var(--sage);
+}
+.botanical:before{
+  width:2px;height:150px;
+  left:42px;top:15px;
+  transform:rotate(22deg);
+  transform-origin:bottom;
+}
+.botanical:after{
+  width:46px;height:46px;
+  border-radius:50% 0 50% 0;
+  left:14px;top:72px;
+  box-shadow:
+    26px -22px 0 -7px var(--sage2),
+    52px -43px 0 -9px var(--sage),
+    60px 8px 0 -8px var(--sage2),
+    21px 27px 0 -8px var(--sage2);
+  transform:rotate(-23deg);
+}
+.flower{
+  position:absolute;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#fffdf9;
+  box-shadow:
+    8px 3px 0 -1px #fffdf9,
+    3px 9px 0 -1px #fffdf9,
+    -4px 4px 0 -1px #fffdf9;
+}
+.tl .flower{left:72px;top:43px}
+.br .flower{left:43px;top:74px}
+
+.letter-content{
+  width:min(92vw,720px);
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.eyebrow{
+  margin-bottom:12px;
+  font-size:clamp(11px,2.7vw,15px);
+  letter-spacing:4px;
+  text-transform:uppercase;
+}
+h1{
+  margin:0;
+  font-weight:400;
+  font-size:clamp(45px,12vw,82px);
+  line-height:1;
+  letter-spacing:-1px;
+  font-style:italic;
+}
+.intro{
+  margin:25px auto 28px;
+  font-size:clamp(16px,4vw,21px);
+  line-height:1.55;
+  max-width:570px;
+}
+
+/* scratch card */
+.scratch-wrap{
+  position:relative;
+  width:min(86vw,590px);
+  margin:0 auto 27px;
+}
+.message{
+  min-height:205px;
+  padding:30px 18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 28%,rgba(255,255,255,.78),transparent 55%),
+    #f7efe5;
+  border:1px solid rgba(91,67,47,.17);
+  box-shadow:0 10px 28px rgba(81,59,39,.10);
+}
+.message .main{
+  font-size:clamp(26px,7vw,42px);
+  line-height:1.15;
+}
+.message .date{
+  margin-top:9px;
+  font-size:clamp(29px,7.7vw,46px);
+  letter-spacing:2px;
+}
+.message .small{
+  margin-top:13px;
+  font-size:clamp(15px,4vw,20px);
+}
+#scratchCanvas{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:4;
+  touch-action:none;
+  cursor:crosshair;
+}
+.scratch-label{
+  position:absolute;
+  z-index:5;
+  left:50%;top:50%;
+  width:92%;
+  transform:translate(-50%,-50%);
+  color:rgba(65,58,52,.82);
+  pointer-events:none;
+  font-size:clamp(14px,3.8vw,18px);
+  line-height:1.45;
+}
+.scratch-label strong{
+  display:block;
+  font-size:clamp(17px,4.5vw,22px);
+  font-weight:normal;
+  margin-bottom:5px;
+}
+.scratch-wrap.rubbed .scratch-label{opacity:0}
+
+.bottom{
+  max-width:650px;
+  font-size:clamp(15px,4vw,20px);
+  line-height:1.55;
+}
+.bottom .heart{margin-top:9px;font-size:23px}
+
+.controls{
+  position:absolute;
+  right:15px;top:max(12px,env(safe-area-inset-top));
+  z-index:10;
+}
+.control{
+  border:1px solid rgba(75,58,45,.16);
+  background:rgba(255,255,255,.5);
+  color:#5d4c3f;
+  border-radius:999px;
+  padding:7px 11px;
+  font-size:11px;
+  backdrop-filter:blur(7px);
+}
+
+/* mobile spacing */
+@media(max-height:700px){
+  .letter{justify-content:flex-start;padding-top:52px}
+  .intro{margin:15px auto 17px}
+  .message{min-height:155px;padding:20px 14px}
+  .scratch-wrap{margin-bottom:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. Verschlossener Umschlag -->
+<section id="envelopeScene">
+  <div class="envelope" id="envelope">
+    <div class="env-body"></div>
+    <div class="env-pocket"></div>
+    <div class="flap"></div>
+
+    <button class="seal pulse" id="seal" aria-label="Wachssiegel antippen">
+      <div class="seal-content">
+        <div class="around">SAVE THE DATE</div>
+        <div class="initials">L+M</div>
+        <div class="heart">♥</div>
+      </div>
+    </button>
+
+    <div class="hint"><b>Tippe auf das Wachssiegel zum Öffnen</b></div>
+  </div>
+</section>
+
+<!-- 2. Vollflächiger Brief -->
+<section id="letterScene">
+  <div class="letter">
+    <div class="botanical tl"><div class="flower"></div></div>
+    <div class="botanical br"><div class="flower"></div></div>
+
+    <div class="controls">
+      <button class="control" id="resetScratch">Rubbelfläche zurücksetzen</button>
+    </div>
+
+    <div class="letter-content">
+      <div class="eyebrow">SAVE THE DATE</div>
+      <h1>Laura &amp; Marcel</h1>
+
+      <!-- Text oberhalb der Rubbelfläche bleibt wie im gewünschten Design -->
+      <p class="intro">
+        Wir haben eine kleine Überraschung für euch …<br>
+        Rubbel das Feld frei.
+      </p>
+
+      <div class="scratch-wrap" id="scratchWrap">
+        <div class="message">
+          <div class="main">Wir heiraten!</div>
+          <div class="date">16.10.2027</div>
+          <div class="small">Weitere Informationen folgen bald!</div>
+        </div>
+
+        <div class="scratch-label">
+          <strong>Hier freirubbeln</strong>
+          Weitere Informationen folgen bald …
+        </div>
+
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+
+      <div class="bottom">
+        Weitere Informationen folgen bald und wir freuen uns auf euch!
+        <div class="heart">♡</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(() => {
+  const envelope = document.getElementById('envelope');
+  const seal = document.getElementById('seal');
+  const envelopeScene = document.getElementById('envelopeScene');
+  const letterScene = document.getElementById('letterScene');
+  const wrap = document.getElementById('scratchWrap');
+  const canvas = document.getElementById('scratchCanvas');
+  const reset = document.getElementById('resetScratch');
+  const ctx = canvas.getContext('2d', {willReadFrequently:true});
+
+  let scratching = false;
+  let opened = false;
+
+  function prepareCanvas(){
+    const r = wrap.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.max(1, Math.round(r.width*dpr));
+    canvas.height = Math.max(1, Math.round(r.height*dpr));
+    canvas.style.width = r.width + 'px';
+    canvas.style.height = r.height + 'px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    paintScratch(r.width,r.height);
+  }
+
+  function paintScratch(w,h){
+    ctx.globalCompositeOperation='source-over';
+
+    const g=ctx.createLinearGradient(0,0,w,h);
+    g.addColorStop(0,'#bdb7b0');
+    g.addColorStop(.45,'#a39d96');
+    g.addColorStop(1,'#b8b2aa');
+    ctx.fillStyle=g;
+    ctx.fillRect(0,0,w,h);
+
+    // feine, unregelmäßige Pinsel-/Rubbelstruktur
+    for(let i=0;i<Math.floor(h*2.4);i++){
+      const y=Math.random()*h;
+      ctx.strokeStyle=`rgba(255,255,255,${.018+Math.random()*.04})`;
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(0,y);
+      ctx.lineTo(w,y+(Math.random()-.5)*4);
+      ctx.stroke();
+    }
+
+    ctx.globalCompositeOperation='destination-out';
+  }
+
+  function pos(e){
+    const r=canvas.getBoundingClientRect();
+    return {x:e.clientX-r.left,y:e.clientY-r.top};
+  }
+
+  function rub(e){
+    if(!scratching)return;
+    e.preventDefault();
+    const p=pos(e);
+    ctx.globalCompositeOperation='destination-out';
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,25,0,Math.PI*2);
+    ctx.fill();
+    wrap.classList.add('rubbed');
+  }
+
+  canvas.addEventListener('pointerdown',e=>{
+    scratching=true;
+    canvas.setPointerCapture?.(e.pointerId);
+    rub(e);
+  });
+  canvas.addEventListener('pointermove',rub);
+  canvas.addEventListener('pointerup',()=>scratching=false);
+  canvas.addEventListener('pointercancel',()=>scratching=false);
+  canvas.addEventListener('pointerleave',()=>scratching=false);
+
+  reset.addEventListener('click',()=>{
+    prepareCanvas();
+    wrap.classList.remove('rubbed');
+  });
+
+  seal.addEventListener('click',()=>{
+    if(opened)return;
+    opened=true;
+    seal.classList.remove('pulse');
+    envelope.classList.add('open');
+
+    // erst Umschlag öffnen, dann Brief herausziehen
+    setTimeout(()=>{
+      envelopeScene.classList.add('hide');
+      letterScene.classList.add('show');
+
+      setTimeout(()=>{
+        prepareCanvas();
+      },80);
+    },1000);
+  });
+
+  window.addEventListener('resize',()=>{
+    if(letterScene.classList.contains('show')) prepareCanvas();
+  });
+})();
+</script>
+</body>
+</html>
