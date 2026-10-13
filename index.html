@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e8dcc8">
+<title>Save the Date – Laura & Marcel</title>
+<style>
+:root{--paper:#f8f0e2;--ink:#533a2b;--muted:#826d57;--wine:#741d2a;--gold:#b18a4c;--sage:#77836b}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:24px 14px 42px;color:var(--ink);font-family:Georgia,'Times New Roman',serif;background:radial-gradient(ellipse at 50% 5%,#fffaf1 0,#eee3d2 44%,#d6c3a8 100%);display:flex;justify-content:center}
+main{width:min(100%,520px)}
+.scene{min-height:78vh;display:flex;align-items:center;justify-content:center}
+.envelope-wrap{width:100%;max-width:440px;text-align:center}
+.envelope{appearance:none;display:block;position:relative;width:100%;aspect-ratio:1.42;border:1px solid #cdb99a;border-radius:3px;background:linear-gradient(135deg,#f7eddd 0%,#e8d7bd 48%,#f2e5d1 100%);box-shadow:0 24px 45px #4b321e26,0 3px 8px #4b321e19,inset 0 0 24px #fff9ed88;cursor:pointer;perspective:1000px;overflow:visible;padding:0}
+.envelope:before{content:"";position:absolute;inset:0;opacity:.25;pointer-events:none;background:repeating-linear-gradient(3deg,transparent 0 3px,#bda88718 4px,#fff8e91a 5px)}
+.env-left,.env-right,.env-bottom{position:absolute;inset:0;z-index:3;pointer-events:none}
+.env-left{background:linear-gradient(35deg,#f6ecdc,#e3d1b6);clip-path:polygon(0 0,52% 52%,0 100%);filter:drop-shadow(2px 0 2px #8e745033)}
+.env-right{background:linear-gradient(320deg,#f4e8d5,#dfccb0);clip-path:polygon(100% 0,48% 52%,100% 100%)}
+.env-bottom{background:linear-gradient(0deg,#e7d4b7,#f6ead8);clip-path:polygon(0 100%,50% 47%,100% 100%)}
+.env-flap{position:absolute;inset:0;background:linear-gradient(155deg,#fff5e5 0%,#e8d6bb 100%);clip-path:polygon(0 0,100% 0,50% 59%);transform-origin:top;transition:transform .95s cubic-bezier(.2,.75,.2,1);z-index:5;filter:drop-shadow(0 4px 3px #60452e25);pointer-events:none}
+.envelope.open .env-flap{transform:rotateX(180deg);z-index:1}
+.wax{position:absolute;z-index:6;left:50%;top:48%;transform:translate(-50%,-50%);width:120px;height:120px;border-radius:48% 52% 47% 53% / 52% 47% 53% 48%;border:3px solid #8c2932;background:radial-gradient(circle at 31% 25%,#b95754 0,#8c2631 44%,#681724 76%,#4d101b 100%);box-shadow:inset 0 0 0 2px #b96963,inset 0 0 0 5px #7c1b28,inset 2px 3px 8px #e9a49a55,0 6px 10px #4a251d45;color:#f2d8ac;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.wax:after{content:"";position:absolute;inset:8px;border:1px solid #d8a17c;border-radius:48% 52% 49% 51%;opacity:.75}
+.wax .initials{font-size:31px;font-style:italic;letter-spacing:-1px;text-shadow:0 1px 1px #42121a;line-height:1.1}
+.wax .arc{font-size:9px;letter-spacing:1.7px;text-transform:uppercase}
+.hint{margin:24px auto 0;font-size:17px;font-style:italic;line-height:1.55;color:#765a41}
+.hint strong{display:block;font-size:19px;font-weight:normal;margin-bottom:4px}
+.invite{display:none;position:relative;isolation:isolate;overflow:hidden;width:100%;padding:29px 23px 25px;text-align:center;background:linear-gradient(115deg,#fdf7eb 0%,#f5ead8 48%,#fff9ed 100%);border:1px solid #d2bc96;box-shadow:0 18px 42px #54391d24,inset 0 0 30px #e4d2b355}
+.invite:before{content:"";position:absolute;z-index:-1;inset:10px;border:1px solid #c7aa79;pointer-events:none}
+.invite:after{content:"";position:absolute;z-index:-1;inset:0;opacity:.22;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 4px,#cdbb9b12 5px,#fff 6px)}
+.botanical{height:74px;display:flex;justify-content:center;align-items:center;margin:-4px 0 6px;color:var(--sage)}
+.botanical svg{width:220px;height:76px;overflow:visible}
+.script{font-family:'Brush Script MT','Segoe Script','Snell Roundhand',cursive;font-weight:normal;font-style:italic}
+h1{font-size:clamp(39px,9vw,55px);line-height:1.05;margin:5px 0 12px;font-weight:normal;color:#553b2a}
+.names{font-size:16px;letter-spacing:3.5px;text-transform:uppercase;margin:0 0 12px}
+.heart{font-size:18px;margin:8px;color:#74513a}
+.surprise{font-size:18px;line-height:1.5;margin:13px 0 18px}
+.scratch-box{position:relative;height:184px;max-width:390px;margin:0 auto 19px;border:1px solid #c6ad80;background:#fff8e9;overflow:hidden;touch-action:pan-y;box-shadow:inset 0 0 14px #ad8c5b24}
+.reveal{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:12px;background:radial-gradient(ellipse at center,#fffaf0,#f4e6cf)}
+.reveal .script{font-size:clamp(35px,8vw,47px);line-height:1.1}
+.date{font-size:22px;letter-spacing:.7px;margin:7px 0}
+.details{font-size:14px;line-height:1.45;margin:0}
+#scratch{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.scratch-label{position:absolute;z-index:2;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#503a26;font-style:italic;font-size:28px;pointer-events:none;text-shadow:0 1px #ead9b9}
+.scratch-label span{font-size:20px;margin-top:3px}
+.scratch-label small{font-family:Georgia,serif;font-size:10px;letter-spacing:1.8px;font-style:normal;margin-top:5px}
+.calendar{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;max-width:100%;padding:12px 16px;border:1px solid #94784e;border-radius:28px;color:var(--ink);text-decoration:none;font-size:11px;letter-spacing:1.25px;text-transform:uppercase;background:linear-gradient(#fffaf0,#f1e3cc);position:relative;z-index:2;box-shadow:0 2px 4px #5b3e2410}
+.calendar:hover{background:#ead8bb}
+.note{font-size:12px;line-height:1.5;margin:14px 0 0;color:#806b55}
+@media(max-width:380px){.invite{padding:24px 16px}.scratch-box{height:170px}.wax{width:108px;height:108px}.names{letter-spacing:2.5px;font-size:14px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section class="scene" id="scene">
+  <div class="envelope-wrap" id="envelopeWrap">
+    <button class="envelope" id="envelope" aria-label="Wachssiegel antippen, um den Umschlag zu öffnen" type="button">
+      <span class="env-left"></span><span class="env-right"></span><span class="env-bottom"></span><span class="env-flap"></span>
+      <span class="wax"><span class="arc">SAVE THE DATE</span><span class="initials">L + M</span><span class="arc">♥</span></span>
+    </button>
+    <p class="hint"><strong>Eine kleine Überraschung wartet auf euch …</strong>Tippt auf das Wachssiegel,<br>um unseren Umschlag zu öffnen ♡</p>
+  </div>
+  <article class="invite" id="invite" aria-live="polite">
+    <div class="botanical" aria-hidden="true">
+      <svg viewBox="0 0 260 85" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#78856d" stroke-width="1.3" stroke-linecap="round">
+          <path d="M8 72 Q57 55 104 12 M35 61 Q26 42 16 38 M48 55 Q63 34 79 36 M65 43 Q50 25 51 15 M79 31 Q99 27 107 18 M22 66 Q17 54 5 53"/>
+          <path d="M252 72 Q203 55 156 12 M225 61 Q234 42 244 38 M212 55 Q197 34 181 36 M195 43 Q210 25 209 15 M181 31 Q161 27 153 18 M238 66 Q243 54 255 53"/>
+        </g>
+        <g fill="#8b9a7c" opacity=".9">
+          <ellipse cx="22" cy="42" rx="5" ry="12" transform="rotate(-42 22 42)"/><ellipse cx="67" cy="39" rx="5" ry="12" transform="rotate(42 67 39)"/><ellipse cx="51" cy="20" rx="5" ry="11" transform="rotate(-30 51 20)"/><ellipse cx="91" cy="27" rx="5" ry="11" transform="rotate(50 91 27)"/><ellipse cx="12" cy="55" rx="4" ry="10" transform="rotate(-55 12 55)"/>
+          <ellipse cx="238" cy="42" rx="5" ry="12" transform="rotate(42 238 42)"/><ellipse cx="193" cy="39" rx="5" ry="12" transform="rotate(-42 193 39)"/><ellipse cx="209" cy="20" rx="5" ry="11" transform="rotate(30 209 20)"/><ellipse cx="169" cy="27" rx="5" ry="11" transform="rotate(-50 169 27)"/><ellipse cx="248" cy="55" rx="4" ry="10" transform="rotate(55 248 55)"/>
+        </g>
+        <g fill="#fffaf0" stroke="#d8c8ad" stroke-width=".8">
+          <circle cx="105" cy="15" r="4"/><circle cx="112" cy="20" r="3.2"/><circle cx="101" cy="23" r="3"/><circle cx="153" cy="15" r="4"/><circle cx="146" cy="20" r="3.2"/><circle cx="157" cy="23" r="3"/>
+          <circle cx="93" cy="35" r="3"/><circle cx="167" cy="35" r="3"/><circle cx="114" cy="31" r="2.5"/><circle cx="146" cy="31" r="2.5"/>
+        </g>
+      </svg>
+    </div>
+    <h1 class="script">Save the Date</h1>
+    <p class="names">Laura und Marcel</p>
+    <div class="heart">♥</div>
+    <p class="surprise">Wir haben eine kleine Überraschung für euch….</p>
+    <div class="scratch-box" id="scratchBox" aria-label="Rubbel die Fläche frei, um die Überraschung zu entdecken">
+      <div class="reveal">
+        <div class="script">Wir Heiraten!</div>
+        <div class="date">16. Oktober 2027</div>
+        <p class="details">Wir freuen uns auf euch und<br>weitere Informationen folgen ♥️</p>
+      </div>
+      <canvas id="scratch"></canvas>
+      <div class="scratch-label" id="scratchLabel">Frei rubbeln <span>♡</span><small>MIT DEM FINGER ENTDECKEN</small></div>
+    </div>
+    <a class="calendar" id="calendar" href="#" download="Laura-und-Marcel-Hochzeit.ics"><span aria-hidden="true">▦</span> Termin im Kalender eintragen　›</a>
+    <p class="note">Wir freuen uns darauf, diesen besonderen Tag mit euch zu feiern.</p>
+  </article>
+</section>
+</main>
+<script>
+(function(){
+ const envelope=document.getElementById('envelope'), wrap=document.getElementById('envelopeWrap'), invite=document.getElementById('invite');
+ envelope.addEventListener('click',()=>{
+   envelope.classList.add('open');
+   setTimeout(()=>{wrap.style.display='none';invite.style.display='block';setupScratch();},650);
+ });
+ const canvas=document.getElementById('scratch'), ctx=canvas.getContext('2d'), label=document.getElementById('scratchLabel'), box=document.getElementById('scratchBox');
+ let drawing=false, scratched=false, checked=false;
+ function setupScratch(){
+   const rect=box.getBoundingClientRect(), dpr=Math.max(1,window.devicePixelRatio||1);
+   canvas.width=Math.round(rect.width*dpr);canvas.height=Math.round(rect.height*dpr);
+   ctx.setTransform(dpr,0,0,dpr,0,0);
+   const grad=ctx.createLinearGradient(0,0,rect.width,rect.height);
+   grad.addColorStop(0,'#b9965c');grad.addColorStop(.45,'#d6bb83');grad.addColorStop(1,'#a98245');
+   ctx.globalCompositeOperation='source-over';ctx.fillStyle=grad;ctx.fillRect(0,0,rect.width,rect.height);
+   ctx.strokeStyle='rgba(255,248,226,.45)';ctx.lineWidth=1;
+   for(let i=0;i<24;i++){ctx.beginPath();ctx.moveTo(0,i*9);ctx.lineTo(rect.width,i*9+20);ctx.stroke();}
+   ctx.globalCompositeOperation='destination-out';
+ }
+ function point(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
+ function rub(e){
+   if(!drawing||checked)return;
+   const p=point(e);ctx.beginPath();ctx.arc(p.x,p.y,19,0,Math.PI*2);ctx.fill();
+   if(!scratched){scratched=true;label.style.opacity='0';label.style.transition='opacity .2s';}
+ }
+ function checkProgress(){
+   if(checked||!canvas.width)return;
+   const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;let clear=0;
+   for(let i=3;i<data.length;i+=4)if(data[i]<80)clear++;
+   if(clear/(data.length/4)>.48){checked=true;ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.pointerEvents='none';label.style.display='none';}
+ }
+ canvas.addEventListener('pointerdown',e=>{drawing=true;canvas.setPointerCapture(e.pointerId);rub(e);});
+ canvas.addEventListener('pointermove',rub);
+ ['pointerup','pointercancel','lostpointercapture'].forEach(ev=>canvas.addEventListener(ev,()=>{drawing=false;checkProgress();}));
+ function fmtUTCDate(d){return d.toISOString().slice(0,10).replace(/-/g,'');}
+ const allDay=new Date(Date.UTC(2027,9,16));
+ const nextDay=new Date(Date.UTC(2027,9,17));
+ function fmtStamp(d){return d.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');}
+ const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Laura und Marcel//Save the Date//DE','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:laura-marcel-20271016@savethedate','DTSTAMP:'+fmtStamp(new Date()),'DTSTART;VALUE=DATE:'+fmtUTCDate(allDay),'DTEND;VALUE=DATE:'+fmtUTCDate(nextDay),'SUMMARY:Hochzeit von Laura und Marcel','DESCRIPTION:Wir freuen uns auf euch! Weitere Informationen folgen.','END:VEVENT','END:VCALENDAR'].join('\r\n');
+ document.getElementById('calendar').href=URL.createObjectURL(new Blob([ics],{type:'text/calendar;charset=utf-8'}));
+})();
+</script>
+</body>
+</html>
